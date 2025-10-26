@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bioma das Araucárias - Mata Atlântica</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Glassmorphism Header */
+        header {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00ff87, #60efff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #00ff87, #60efff);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #00ff87;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section with Particles */
+        .hero {
+            margin-top: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0a 70%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="0.5" fill="%2300ff87" opacity="0.1"/><circle cx="75" cy="75" r="0.3" fill="%2360efff" opacity="0.1"/><circle cx="50" cy="10" r="0.4" fill="%23ffffff" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #00ff87 0%, #60efff 50%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-weight: 400;
+        }
+
+        .araucaria-icon {
+            width: 200px;
+            height: 200px;
+            margin: 3rem auto;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Modern Sections */
+        .section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section:nth-child(even) {
+            background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+        }
+
+        .section:nth-child(odd) {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1e1e1e 100%);
+        }
+
+        .section h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, #00ff87, #60efff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        /* Glass Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            border-radius: 24px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 135, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 255, 135, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 255, 135, 0.1);
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #00ff87;
+        }
+
+        .card p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Stats with Animation */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            margin: 4rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 255, 135, 0.1), rgba(96, 239, 255, 0.1));
+            border: 1px solid rgba(0, 255, 135, 0.2);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 255, 135, 0.2);
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            display: block;
+            background: linear-gradient(135deg, #00ff87, #60efff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.5rem;
+        }
+
+        /* Interactive Map */
+        .map-container {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 4rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .map-header h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #00ff87;
+            margin-bottom: 1rem;
+        }
+
+        .interactive-map {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid rgba(0, 255, 135, 0.2);
+            background-image: url('https://static.todamateria.com.br/upload/56/27/56279f96dba81-estados-do-sul.jpg'); 
+            background-size: contain; /* ou 'cover' dependendo do efeito desejado */
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .map-region {
+            position: absolute;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .region-parana {
+            top: -2%;
+            left: 40%;
+            width: 25%;
+            height: 35%;
+        }
+
+        .region-sc {
+            top: 30%;
+            left: 50%;
+            width: 10%;
+            height: 25%;
+        }
+
+        .region-rs {
+            top: 50%;
+            left: 35%;
+            width: 20%;
+            height: 25%;
+        }
+
+        .map-region:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 135, 0.3);
+        }
+
+        .map-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .conservation-status {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 87, 34, 0.1));
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 16px;
+            margin: 3rem 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: linear-gradient(135deg, #00ff87, #60efff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 255, 135, 0.4);
+        }
+
+        footer {
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            padding: 4rem 0;
+            margin-top: 0;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .card {
+                padding: 2rem;
+            }
+            
+            .map-container {
+                padding: 2rem;
+            }
+            
+            .interactive-map {
+                height: 400px;
+            }
+            
+            .map-region {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                🌲 Araucárias
+            </div>
+            <ul class="nav-links">
+                <li><a onclick="scrollToSection('sobre')">Sobre</a></li>
+                <li><a onclick="scrollToSection('caracteristicas')">Características</a></li>
+                <li><a onclick="scrollToSection('localizacao')">Localização</a></li>
+                <li><a onclick="scrollToSection('conservacao')">Conservação</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <svg class="araucaria-icon" viewBox="0 0 200 200" fill="none">
+                        <defs>
+                            <linearGradient id="trunkGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#8B4513"/>
+                                <stop offset="100%" style="stop-color:#654321"/>
+                            </linearGradient>
+                            <linearGradient id="foliageGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00ff87"/>
+                                <stop offset="50%" style="stop-color:#10b981"/>
+                                <stop offset="100%" style="stop-color:#047857"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M100 30 L100 190" stroke="url(#trunkGrad)" stroke-width="12" stroke-linecap="round"/>
+                        <circle cx="100" cy="50" r="35" fill="url(#foliageGrad)" opacity="0.9"/>
+                        <circle cx="100" cy="70" r="40" fill="url(#foliageGrad)" opacity="0.8"/>
+                        <circle cx="100" cy="90" r="45" fill="url(#foliageGrad)" opacity="0.7"/>
+                        <circle cx="100" cy="110" r="50" fill="url(#foliageGrad)" opacity="0.6"/>
+                        <path d="M70 190 L130 190" stroke="#60efff" stroke-width="6" stroke-linecap="round"/>
+                        <circle cx="85" cy="45" r="3" fill="#60efff" opacity="0.8"/>
+                        <circle cx="115" cy="65" r="2" fill="#00ff87" opacity="0.9"/>
+                        <circle cx="90" cy="85" r="2.5" fill="#ffffff" opacity="0.7"/>
+                    </svg>
+                    <h1>Bioma das Araucárias</h1>
+                    <p>Descubra a majestosa Floresta de Araucárias, um dos ecossistemas mais únicos e ameaçados do Brasil, onde gigantes milenares guardam segredos da biodiversidade sul-americana.</p>
+                    <button class="btn" onclick="scrollToSection('sobre')">Explorar Bioma</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="sobre" class="section">
+            <div class="container">
+                <h2>Sobre o Bioma</h2>
+                <p style="text-align: center; font-size: 1.1rem; max-width: 800px; margin: 0 auto 3rem;">
+                    A Floresta de Araucárias, também conhecida como Mata de Pinhais, é uma formação vegetal característica da Mata Atlântica, dominada pela majestosa Araucaria angustifolia, o pinheiro-do-paraná.
+                </p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">3%</span>
+                        <span class="stat-label">Restam da cobertura original</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">40m</span>
+                        <span class="stat-label">Altura máxima das araucárias</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">700</span>
+                        <span class="stat-label">Anos de vida da árvore</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">200mil</span>
+                        <span class="stat-label">Hectares protegidos</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="caracteristicas" class="section">
+            <div class="container">
+                <h2>Características Únicas</h2>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>🌲 Araucária</h3>
+                        <p>Árvore símbolo do bioma, com copa em formato de taça e folhas aciculares. Pode viver mais de 700 anos e atingir 40 metros de altura.</p>
+                    </div>
+                    <div class="card">
+                        <h3>🌿 Biodiversidade</h3>
+                        <p>Abriga espécies endêmicas como o papagaio-charão, gralha-azul e diversas plantas medicinais utilizadas por comunidades tradicionais.</p>
+                    </div>
+                    <div class="card">
+                        <h3>🌡️ Clima</h3>
+                        <p>Clima subtropical úmido, com temperaturas amenas e chuvas bem distribuídas ao longo do ano, favorecendo o crescimento das araucárias.</p>
+                    </div>
+                    <div class="card">
+                        <h3>🥜 Pinhão</h3>
+                        <p>Semente da araucária, importante fonte alimentar para fauna e comunidades locais. Colheita sustentável é tradição regional.</p>
+                    </div>
+                    <div class="card">
+                        <h3>🦅 Fauna</h3>
+                        <p>Habitat de espécies como onça-pintada, veado-campeiro, quati e mais de 200 espécies de aves, muitas endêmicas.</p>
+                    </div>
+                    <div class="card">
+                        <h3>💧 Recursos Hídricos</h3>
+                        <p>Importante para proteção de nascentes e regulação do ciclo hidrológico, contribuindo para qualidade da água regional.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="localizacao" class="section">
+            <div class="container">
+                <h2>Localização e Distribuição</h2>
+                
+                <div class="map-container">
+                    <div class="map-header">
+                        <h3>Mapa Interativo da Mata de Araucárias</h3>
+                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 1.1rem;">Clique nas regiões para explorar os remanescentes florestais</p>
+                    </div>
+                    
+                    <div class="interactive-map">
+                        <div class="map-region region-parana" onclick="showRegionInfo('parana')">
+                            <div style="text-align: center;">
+                            </div>
+                        </div>
+                        
+                        <div class="map-region region-sc" onclick="showRegionInfo('sc')">
+                            <div style="text-align: center;">
+                            </div>
+                        </div>
+                        
+                        <div class="map-region region-rs" onclick="showRegionInfo('rs')">
+                            <div style="text-align: center;">
+                            </div>
+                        </div>
+                        
+                        <!-- Pontos de interesse -->
+                        <div style="position: absolute; top: 35%; left: 35%; width: 8px; height: 8px; background: #ff6b6b; border-radius: 50%; cursor: pointer;" onclick="showParkInfo('campos-gerais')" title="Parque Nacional dos Campos Gerais"></div>
+                        
+                        <div style="position: absolute; top: 65%; left: 35%; width: 8px; height: 8px; background: #ff6b6b; border-radius: 50%; cursor: pointer;" onclick="showParkInfo('sao-joaquim')" title="Parque Nacional de São Joaquim"></div>
+                        
+                        <div style="position: absolute; top: 80%; left: 25%; width: 8px; height: 8px; background: #ff6b6b; border-radius: 50%; cursor: pointer;" onclick="showParkInfo('aparados')" title="Parque Nacional de Aparados da Serra"></div>
+                    </div>
+                    
+                    <div class="map-legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: rgba(0, 255, 135, 0.3); border: 2px solid #00ff87;"></div>
+                            <span>Alta concentração de araucárias</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: rgba(96, 239, 255, 0.3); border: 2px solid #60efff;"></div>
+                            <span>Concentração moderada</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: rgba(255, 255, 255, 0.2); border: 2px solid rgba(255, 255, 255, 0.5);"></div>
+                            <span>Fragmentos isolados</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #ff6b6b; border-radius: 50%;"></div>
+                            <span>Unidades de Conservação</span>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: rgba(255, 193, 7, 0.1); border-radius: 12px; border: 1px solid rgba(255, 193, 7, 0.3);">
+                        <p style="color: rgba(255, 255, 255, 0.9); font-size: 1.1rem;">
+                            <strong>Área Original:</strong> 200.000 km² | <strong>Área Atual:</strong> ~6.000 km² (3% restante)
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="cards-grid" style="margin-top: 4rem;">
+                    <div class="card">
+                        <h3>🏔️ Paraná - Coração das Araucárias</h3>
+                        <p>Concentra 65% dos remanescentes florestais. Destaque para os Campos Gerais, região de Ponta Grossa, e a Serra do Mar. Abriga o maior número de araucárias centenárias do país.</p>
+                        <div style="margin-top: 1rem; padding: 0.8rem; background: rgba(0, 255, 135, 0.1); border-radius: 8px;">
+                            <small><strong>Principais UCs:</strong> Parque Nacional dos Campos Gerais, FLONA de Irati</small>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>🌄 Santa Catarina - Planalto Serrano</h3>
+                        <p>25% dos remanescentes estão no planalto catarinense. Região de clima mais frio, ideal para araucárias. Importante corredor ecológico conectando fragmentos.</p>
+                        <div style="margin-top: 1rem; padding: 0.8rem; background: rgba(96, 239, 255, 0.1); border-radius: 8px;">
+                            <small><strong>Principais UCs:</strong> Parque Nacional de São Joaquim, Parque Estadual da Serra Furada</small>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>🏞️ Rio Grande do Sul - Fragmentos Únicos</h3>
+                        <p>10% dos remanescentes na região nordeste. Fragmentos menores mas com alta diversidade genética. Importante para conservação de espécies endêmicas.</p>
+                        <div style="margin-top: 1rem; padding: 0.8rem; background: rgba(255, 255, 255, 0.1); border-radius: 8px;">
+                            <small><strong>Principais UCs:</strong> Parque Nacional de Aparados da Serra, FLONA de Canela</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="conservacao" class="section">
+            <div class="container">
+                <h2>Conservação e Ameaças</h2>
+                
+                <div class="conservation-status">
+                    <span style="font-size: 2rem;">⚠️</span>
+                    <div>
+                        <h3 style="margin: 0; color: #92400e;">Status: Criticamente Ameaçado</h3>
+                        <p style="margin: 0.5rem 0 0;">Restam apenas 3% da cobertura original do bioma, classificado como um dos mais ameaçados do Brasil.</p>
+                    </div>
+                </div>
+
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>🚫 Principais Ameaças</h3>
+                        <ul style="text-align: left;">
+                            <li>Desmatamento para agricultura</li>
+                            <li>Expansão urbana</li>
+                            <li>Exploração madeireira histórica</li>
+                            <li>Fragmentação de habitats</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>🛡️ Ações de Conservação</h3>
+                        <ul style="text-align: left;">
+                            <li>Criação de unidades de conservação</li>
+                            <li>Programas de reflorestamento</li>
+                            <li>Corredores ecológicos</li>
+                            <li>Educação ambiental</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>🌱 Como Ajudar</h3>
+                        <ul style="text-align: left;">
+                            <li>Apoiar ONGs ambientais</li>
+                            <li>Consumo consciente de madeira</li>
+                            <li>Turismo ecológico responsável</li>
+                            <li>Plantio de mudas nativas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 3rem;">
+                    <button class="btn" onclick="showConservationInfo()">Saiba Como Contribuir</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Bioma das Araucárias - Guilherme de Souza, Arthur Emmanuel, Julio felipe, Emmanuel e Nicolas Ryan</p>
+            <p style="margin-top: 0.5rem; opacity: 0.8;">Preservar hoje para as futuras gerações 🌲</p>
+        </div>
+    </footer>
+
+    <script>
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        function showConservationInfo() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px);
+                display: flex; align-items: center; justify-content: center; z-index: 10000;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 3rem; border-radius: 20px; 
+                           max-width: 600px; margin: 2rem; border: 1px solid rgba(0, 255, 135, 0.3);">
+                    <h3 style="color: #00ff87; font-size: 2rem; margin-bottom: 2rem; text-align: center;">
+                        🌲 Como Contribuir para a Conservação
+                    </h3>
+                    <div style="color: rgba(255, 255, 255, 0.9); line-height: 1.8;">
+                        <p><strong>💚 Doações:</strong> SOS Mata Atlântica, Fundação O Boticário</p>
+                        <p><strong>🌱 Reflorestamento:</strong> Participe de mutirões de plantio</p>
+                        <p><strong>🏷️ Consumo Consciente:</strong> Produtos com certificação FSC</p>
+                        <p><strong>🏞️ Ecoturismo:</strong> Visite parques nacionais responsavelmente</p>
+                        <p><strong>📚 Educação:</strong> Compartilhe conhecimento sobre o bioma</p>
+                        <p><strong>🏛️ Política:</strong> Apoie leis de proteção ambiental</p>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" 
+                            style="margin-top: 2rem; padding: 1rem 2rem; background: linear-gradient(135deg, #00ff87, #60efff); 
+                                   color: #000; border: none; border-radius: 50px; font-weight: 700; cursor: pointer; width: 100%;">
+                        Fechar
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        function showRegionInfo(region) {
+            const regionData = {
+                parana: {
+                    title: 'Paraná - Coração das Araucárias',
+                    area: '65% dos remanescentes',
+                    description: 'O Paraná concentra a maior parte das florestas de araucárias remanescentes. A região dos Campos Gerais é considerada o berço da espécie, com exemplares que chegam a 700 anos de idade.',
+                    highlights: ['Campos Gerais de Ponta Grossa', 'Serra do Mar Paranaense', 'FLONA de Irati', 'Parque Vila Velha']
+                },
+                sc: {
+                    title: 'Santa Catarina - Planalto Serrano',
+                    area: '25% dos remanescentes',
+                    description: 'O planalto catarinense oferece condições climáticas ideais para as araucárias. A região mantém importantes corredores ecológicos que conectam fragmentos florestais.',
+                    highlights: ['Parque Nacional de São Joaquim', 'Serra da Boa Vista', 'Planalto de Lages', 'Região de Urubici']
+                },
+                rs: {
+                    title: 'Rio Grande do Sul - Fragmentos Únicos',
+                    area: '10% dos remanescentes',
+                    description: 'Embora menor em área, os fragmentos gaúchos apresentam alta diversidade genética e são fundamentais para a conservação de espécies endêmicas da região.',
+                    highlights: ['Aparados da Serra', 'FLONA de Canela', 'Região de Cambará do Sul', 'Cânions do Sul']
+                }
+            };
+
+            const data = regionData[region];
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px);
+                display: flex; align-items: center; justify-content: center; z-index: 10000;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 3rem; border-radius: 20px; 
+                           max-width: 700px; margin: 2rem; border: 1px solid rgba(0, 255, 135, 0.3);">
+                    <h3 style="color: #00ff87; font-size: 2.2rem; margin-bottom: 1rem;">${data.title}</h3>
+                    <p style="color: #60efff; font-size: 1.2rem; margin-bottom: 2rem;">${data.area}</p>
+                    <p style="color: rgba(255, 255, 255, 0.9); line-height: 1.7; margin-bottom: 2rem;">${data.description}</p>
+                    <h4 style="color: #00ff87; margin-bottom: 1rem;">Principais Destaques:</h4>
+                    <ul style="color: rgba(255, 255, 255, 0.8); line-height: 1.6;">
+                        ${data.highlights.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                    <button onclick="this.parentElement.parentElement.remove()" 
+                            style="margin-top: 2rem; padding: 1rem 2rem; background: linear-gradient(135deg, #00ff87, #60efff); 
+                                   color: #000; border: none; border-radius: 50px; font-weight: 700; cursor: pointer; width: 100%;">
+                        Fechar
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        function showParkInfo(park) {
+            const parkData = {
+                'campos-gerais': {
+                    name: 'Parque Nacional dos Campos Gerais',
+                    description: 'Protege 21.286 hectares de campos nativos e florestas de araucárias. Famoso pelas formações rochosas e pela diversidade de fauna.',
+                    established: '2006'
+                },
+                'sao-joaquim': {
+                    name: 'Parque Nacional de São Joaquim',
+                    description: 'Maior unidade de conservação de araucárias do país, com 49.300 hectares. Abriga a maior população de papagaios-charão.',
+                    established: '1961'
+                },
+                'aparados': {
+                    name: 'Parque Nacional de Aparados da Serra',
+                    description: 'Protege os famosos cânions e remanescentes de mata de araucárias. Paisagens espetaculares e biodiversidade única.',
+                    established: '1959'
+                }
+            };
+
+            const data = parkData[park];
+            alert(`🏞️ ${data.name}\n\nCriado em: ${data.established}\n\n${data.description}`);
+        }
+
+        // Animação suave ao carregar
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.8s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Efeito no header ao rolar
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const scrolled = window.pageYOffset;
+            
+            if (scrolled > 100) {
+                header.style.background = 'rgba(10, 10, 10, 0.95)';
+                header.style.borderBottom = '1px solid rgba(0, 255, 135, 0.2)';
+            } else {
+                header.style.background = 'rgba(10, 10, 10, 0.8)';
+                header.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+            }
+        });
+
+        // Animação de entrada dos cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observar cards quando carregarem
+        setTimeout(() => {
+            document.querySelectorAll('.card, .stat-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        }, 500);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'986c1253a2b1f62f',t:'MTc1OTE1NTEwNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
